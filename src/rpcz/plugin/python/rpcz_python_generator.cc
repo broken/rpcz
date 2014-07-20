@@ -242,11 +242,10 @@ void FileGenerator::PrintServiceDescriptor(
 
 void FileGenerator::PrintServiceClass(const ServiceDescriptor& descriptor) const {
   // Print the service.
-  printer_->Print("class $class_name$(service.Service):\n",
+  printer_->Print("class $class_name$(service.Service, metaclass=service_reflection.GeneratedServiceType):\n",
                   "class_name", descriptor.name());
   printer_->Indent();
   printer_->Print(
-      "__metaclass__ = service_reflection.GeneratedServiceType\n"
       "$descriptor_key$ = $descriptor_name$\n",
       "descriptor_key", kDescriptorKey,
       "descriptor_name", ModuleLevelServiceDescriptorName(descriptor));
@@ -255,11 +254,10 @@ void FileGenerator::PrintServiceClass(const ServiceDescriptor& descriptor) const
 
 void FileGenerator::PrintServiceStub(const ServiceDescriptor& descriptor) const {
   // Print the service stub.
-  printer_->Print("class $class_name$_Stub($class_name$):\n",
+  printer_->Print("class $class_name$_Stub($class_name$, metaclass=service_reflection.GeneratedServiceStubType):\n",
                   "class_name", descriptor.name());
   printer_->Indent();
   printer_->Print(
-      "__metaclass__ = service_reflection.GeneratedServiceStubType\n"
       "$descriptor_key$ = $descriptor_name$\n",
       "descriptor_key", kDescriptorKey,
       "descriptor_name", ModuleLevelServiceDescriptorName(descriptor));
